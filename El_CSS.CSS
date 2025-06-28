@@ -1,99 +1,190 @@
-      
-      
-      body {
-      font: 1em sans-serif;
-      background-color: #f0f0f0;
-      color: #333;
-      text-align: center;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    .mensaje {
-      font-size: 1.2em;
-      color: #2980b9;
-      margin-top: 20px;
-    }
-    .advertencia {
-      font-size: 1.1em;
-      color: #e74c3c;
-      margin-top: 20px;
-    }
-    .form-control {
-      width: 200px;
-      padding: 10px;
-      margin-top: 10px;
-      font-size: 1em;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    h2 {
-      color: #34495e;
-      margin-top: 30px;
-    }
-    label {
-      font-size: 1.1em;
-      color: #2c3e50;
-    }
-    input[type="text"] {
-      background-color: #ecf0f1;
-      color: #2c3e50;
-    }
-    input[type="text"]:focus {
-      border-color: #3498db;
-      box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-    }
-    .advertencia {
-      font-weight: bold;
-      margin-top: 20px;
-    }
-    .advertencia strong {
-      color: #c0392b;
-    }
-    .advertencia br {
-      margin: 10px 0;
-    }
-    .advertencia p {
-      margin: 0;
-    }
-    .advertencia a {
-      color: #2980b9;
-      text-decoration: none;
-    }
-    .advertencia a:hover {
-      text-decoration: underline;
-    }
-    .advertencia a:visited {
-      color: #8e44ad;
-    }
-    .advertencia a:active {
-      color: #c0392b;
-    }
-    .advertencia a:focus {
-      outline: none;
-      box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
-    }
-    .advertencia a:focus-visible {
-      outline: 2px solid #3498db;
-      outline-offset: 2px;
-    }
-    .advertencia a:focus:not(:focus-visible) {
-      outline: none;
-    }
+/* Paleta base */
+:root {
+  --azul-suave: #eaf6fb;
+  --azul-medio: #5dade2;
+  --azul-oscuro: #2471a3;
+  --gris-suave: #f7f9fa;
+  --gris-medio: #d6dbdf;
+  --gris-oscuro: #566573;
+  --blanco: #fff;
+}
 
+/* Estilos generales */
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, var(--azul-suave) 60%, var(--gris-suave) 100%);
+  color: var(--gris-oscuro);
+  margin: 0;
+  min-height: 100vh;
+  padding: 0;
+}
 
-        body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 50px;
-    }
-    .mensaje {
-      font-size: 24px;
-      margin-top: 20px;
-      color: blue;
-    }
-    .advertencia {
-      color: red;
-      font-size: 18px;
-      margin-top: 20px;
-    }
+/* Encabezados generales */
+h1, h2 {
+  margin-top: 30px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+h1 {
+  color: var(--azul-oscuro);
+  font-size: 2.2em;
+  background: var(--blanco);
+  padding: 20px 0 10px 0;
+  border-bottom: 2px solid var(--azul-medio);
+  box-shadow: 0 2px 8px rgba(36, 113, 163, 0.07);
+}
+
+h2 {
+  color: var(--azul-medio);
+  font-size: 1.4em;
+}
+
+/* Mensaje principal */
+.mensaje {
+  font-size: 1.3em;
+  color: var(--azul-oscuro);
+  margin: 25px 0 15px 0;
+  background: var(--blanco);
+  border-left: 5px solid var(--azul-medio);
+  padding: 10px 20px;
+  display: inline-block;
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(36, 113, 163, 0.06);
+}
+
+/* Advertencias y mensajes */
+.advertencia {
+  font-size: 1.1em;
+  color: #c0392b;
+  background: var(--gris-suave);
+  border: 1px solid var(--gris-medio);
+  border-radius: 6px;
+  padding: 12px 18px;
+  margin: 20px auto 0 auto;
+  max-width: 400px;
+  font-weight: 500;
+  box-shadow: 0 1px 6px rgba(52, 73, 94, 0.06);
+}
+.advertencia strong {
+  color: #a93226;
+}
+.advertencia a {
+  color: var(--azul-medio);
+  text-decoration: none;
+  font-weight: 600;
+}
+.advertencia a:hover {
+  text-decoration: underline;
+}
+
+/* Inputs y formularios */
+input[type="text"], select {
+  background: var(--blanco);
+  color: var(--gris-oscuro);
+  border: 1.5px solid var(--azul-medio);
+  border-radius: 5px;
+  padding: 10px;
+  margin: 8px 0 15px 0;
+  font-size: 1em;
+  width: 220px;
+  transition: border 0.2s, box-shadow 0.2s;
+  box-shadow: 0 1px 4px rgba(93, 173, 226, 0.07);
+}
+input[type="text"]:focus, select:focus {
+  border-color: var(--azul-oscuro);
+  outline: none;
+  box-shadow: 0 0 8px var(--azul-medio);
+}
+.form-control {
+  width: 220px;
+}
+
+/* Botones */
+button {
+  background: var(--azul-medio);
+  color: var(--blanco);
+  border: none;
+  border-radius: 5px;
+  padding: 10px 28px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: background 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(93, 173, 226, 0.08);
+}
+button:hover {
+  background: var(--azul-oscuro);
+}
+
+/* Etiquetas */
+label {
+  font-size: 1.08em;
+  color: var(--azul-oscuro);
+  font-weight: 500;
+  margin-right: 8px;
+}
+
+/* Diferenciar index.html (juego) */
+body.index-juego {
+  background: linear-gradient(135deg, var(--azul-suave) 80%, var(--blanco) 100%);
+}
+body.index-juego h1 {
+  color: var(--azul-medio);
+  background: var(--azul-suave);
+  border-bottom: 2px solid var(--azul-oscuro);
+}
+body.index-juego .mensaje {
+  color: var(--azul-medio);
+  border-left: 5px solid var(--azul-oscuro);
+}
+
+/* Diferenciar precione.html (registro) */
+body.registro {
+  background: linear-gradient(135deg, var(--blanco) 70%, var(--azul-suave) 100%);
+}
+body.registro h1, body.registro h2 {
+  color: var(--azul-oscuro);
+}
+body.registro .mensaje {
+  color: var(--azul-oscuro);
+  border-left: 5px solid var(--azul-medio);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .mensaje, .advertencia {
+    font-size: 1em;
+    padding: 8px 10px;
+    max-width: 95vw;
+  }
+  input[type="text"], select, .form-control {
+    width: 95vw;
+    min-width: 0;
+  }
+}
+/* Enlaces destacados */
+.enlaces {
+  background: var(--azul-medio);
+  padding: 18px 0 10px 0;
+  margin: 35px auto 0 auto;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(93, 173, 226, 0.10);
+  max-width: 400px;
+}
+
+.enlaces a {
+  color: var(--blanco);
+  font-weight: 600;
+  font-size: 1.08em;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.enlaces a:hover {
+  color: var(--azul-oscuro);
+  text-decoration: underline;
+}
