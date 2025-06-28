@@ -1,40 +1,75 @@
+// Mostrar usuarios registrados en el <select>
+function cargarUsuariosEnSelect() {
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const select = document.getElementById('selectUsuario');
+  // Limpiar opciones previas
+  select.innerHTML = '<option value="">Seleccione usuario</option>';
+  usuarios.forEach(u => {
+    select.innerHTML += `<option value="${u.tecla}">${u.nombre} (${u.tecla})</option>`;
+  });
+}
 
-    // Relación de teclas con usuarios
-    const usuarios = {
-      'a': 'Ana',
-      't': 'Tomás',
-      'm': 'María',
-      '7': 'Luis',
-      '3': 'Sofía',
-      '4': 'Carlos',
-      'p': 'Patricia',
-      'o': 'Oliver',
-      'f': 'Fermín',
-      's': 'Sonia',
-      'c': 'Checho',
-      'd': 'Daniel'
-    };
+// Guardar usuario nuevo en localStorage
+function guardarUsuario(nombre, tecla) {
+  let usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  usuarios.push({ nombre, tecla: tecla.toUpperCase() });
+  localStorage.setItem('usuarios', JSON.stringify(usuarios));
+}
 
-    let teclaPresionada = false;
-    let primerUsuario = '';
+// Manejar registro de usuario
+document.getElementById('registroForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const nombre = document.getElementById('nuevoUsuario').value.trim();
+  const tecla = document.getElementById('teclaUsuario').value.trim().toUpperCase();
+  if (nombre && tecla.match(/^[A-Z0-9]$/)) {
+    guardarUsuario(nombre, tecla);
+    cargarUsuariosEnSelect();
+    alert('Usuario registrado correctamente');
+    document.getElementById('nuevoUsuario').value = '';
+    document.getElementById('teclaUsuario').value = '';
+  } else {
+    alert('Ingrese un nombre y una tecla válida (letra o número).');
+  }
+});
 
-    window.addEventListener('keydown', function(event) {
-      const tecla = event.key.toLowerCase();
+// HTML para el registro de usuarios
+// Mostrar usuarios registrados en un select// y permitir registrar nuevos usuarios
 
-      if (usuarios.hasOwnProperty(tecla) && !teclaPresionada) {
-        teclaPresionada = true;
-        primerUsuario = usuarios[tecla];
 
-        document.getElementById('username').value = primerUsuario;
-        document.getElementById('resultado').textContent =
-          `El usuario "${primerUsuario}" ha presionado la tecla "${tecla.toUpperCase()}"`;
+// Mostrar nombre del usuario seleccionado
+document.addEventListener('DOMContentLoaded', function() {
+  cargarUsuariosEnSelect();
+  document.getElementById('selectUsuario').addEventListener('change', function() {
+    const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+    const teclaSeleccionada = this.value;
+    const usuario = usuarios.find(u => u.tecla === teclaSeleccionada);
+    document.getElementById('username').value = usuario ? usuario.nombre : '';
+    document.getElementById('resultado').textContent = usuario ? `Usuario seleccionado: ${usuario.nombre}` : 'ESCOJA NOMBRE';
+  });
+});
 
-      } else if (usuarios.hasOwnProperty(tecla) && teclaPresionada) {
-        const segundoUsuario = usuarios[tecla];
-        const mensaje = `El primer usuario seleccionado fue "${primerUsuario}".<br>
-                         El segundo intento fue "${segundoUsuario}".<br>
-                         <strong>Solo la primera elección es válida.</strong><br>
-                         Por favor, recarga la página para intentarlo de nuevo.`;
-        document.getElementById('mensajeFinal').innerHTML = mensaje;
-      }
-    });
+// Cambia la lógica para usar los usuarios registrados
+let juegoActivo = true;
+
+window.addEventListener('keydown', function(event) {
+  if (!juegoActivo) return;
+  const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
+  const select = document.getElementById('selectUsuario');
+  const teclaSeleccionada = select.value;
+  if (!teclaSeleccionada) return; // No hay usuario seleccionado
+
+  const usuario = usuarios.find(u => u.tecla === teclaSeleccionada);
+  const tecla = event.key.toUpperCase();
+
+  if (usuario && tecla === usuario.tecla) {
+    document.getElementById('resultado').textContent =
+      `¡${usuario.nombre} ha presionado su tecla "${tecla}" correctamente!`;
+    juegoActivo = false;
+  } else if (usuario && tecla !== usuario.tecla) {
+    document.getElementById('mensajeFinal').innerHTML =
+      `Tecla incorrecta para ${usuario.nombre}. Intenta de nuevo.`;
+  }
+});
+
+
+

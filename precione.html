@@ -2,23 +2,34 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Detección de Tecla</title>
+  <title>registro de Tecla</title>
   <link rel="stylesheet" href="El_CSS.CSS">
-
 </head>
 <body>
 
-  <h1>Presiona A, T, M, 7, 3, 4, P, O, F, S, C o D</h1>
   <p class="mensaje" id="resultado">ESCOJA NOMBRE</p>
 
+  <h2>Registrar Usuario</h2>
+  <form id="registroForm">
+    <label for="nuevoUsuario">Nombre:</label>
+    <input type="text" id="nuevoUsuario" required>
+    <label for="teclaUsuario">Tecla:</label>
+    <input type="text" id="teclaUsuario" maxlength="1" required>
+    <button type="submit">Registrar</button>
+  </form>
+
   <h2>Iniciar Sesión</h2>
-  <label for="username">Usuario:</label>
+  <label for="selectUsuario">Usuario:</label>
+  <select id="selectUsuario">
+    <option value="">Seleccione usuario</option>
+    <!-- Opciones generadas por JavaScript -->
+  </select>
   <input type="text" class="form-control" id="username" readonly>
 
   <!-- Mensaje de advertencia aquí -->
   <p class="advertencia" id="mensajeFinal"></p>
 
-<script src="precione.js"></script>
+  <script src="precione.js"></script>
 
 </body>
 </html>
