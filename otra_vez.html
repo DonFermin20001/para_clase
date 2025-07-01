@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Tecla</title>
+  <link rel="stylesheet" href="El_CSS.CSS">
+</head>
+<body class="index-juego">
+
+  <h1>Presiona tu tecla registrada</h1>
+  <p class="mensaje" id="resultado">ESCOJA NOMBRE</p>
+
+  <h2>Usuarios Registrados</h2>
+  <table id="tablaUsuarios" style="margin:0 auto 20px auto; background:#fff; border-radius:8px; box-shadow:0 1px 6px #d6dbdf;">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Tecla</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Usuarios llenados por JS -->
+    </tbody>
+  </table>
+
+  <h2>Iniciar Sesión</h2>
+  <label for="username">Usuario:</label>
+  <input type="text" class="form-control" id="username" readonly>
+
+  <p class="advertencia" id="mensajeFinal"></p>
+
+  <button id="reiniciarJuego">Reiniciar juego</button>
+
+  <script>
+    // Leer usuarios registrados desde localStorage
+    function obtenerUsuariosRegistrados() {
+      return JSON.parse(localStorage.getItem('usuarios')) || [];
+    }
+
+    // Mostrar usuarios en tabla
+    function mostrarUsuarios() {
+      const usuarios = obtenerUsuariosRegistrados();
+      const tbody = document.getElementById('tablaUsuarios').querySelector('tbody');
+      tbody.innerHTML = '';
+      usuarios.forEach(u => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${u.nombre}</td><td>${u.tecla}</td>`;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Lógica del juego
+    let teclaPresionada = false;
+    let primerUsuario = null;
+
+    function resetJuego() {
+      teclaPresionada = false;
+      primerUsuario = null;
+      document.getElementById('username').value = '';
+      document.getElementById('resultado').textContent = 'ESCOJA NOMBRE';
+      document.getElementById('mensajeFinal').textContent = '';
+    }
+
+    window.addEventListener('keydown', function(event) {
+      const usuarios = obtenerUsuariosRegistrados();
+      const tecla = event.key.toUpperCase();
+      const usuario = usuarios.find(u => u.tecla === tecla);
+
+      if (usuario && !teclaPresionada) {
+        teclaPresionada = true;
+        primerUsuario = usuario;
+        document.getElementById('username').value = usuario.nombre;
+        document.getElementById('resultado').textContent =
+          `El usuario "${usuario.nombre}" ha presionado la tecla "${tecla}"`;
+        document.getElementById('mensajeFinal').textContent = '';
+      } else if (usuario && teclaPresionada) {
+        const segundoUsuario = usuario;
+        document.getElementById('mensajeFinal').innerHTML =
+          `El primer usuario fue <b>${primerUsuario.nombre}</b>.<br>
+          El segundo intento fue <b>${segundoUsuario.nombre}</b>.<br>
+          <strong>Solo la primera elección es válida.</strong><br>`;
+      }
+    });
+
+    document.getElementById('reiniciarJuego').addEventListener('click', resetJuego);
+
+    // Inicializar
+    mostrarUsuarios();
+    resetJuego();
+  </script>
+
+  <div class="enlaces">
+    <p>
+      <a href="precione.html">¿No estás registrado? Regístrate aquí</a>
+    </p>
+  </div>
+</body>
+</html>
