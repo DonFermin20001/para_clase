@@ -41,6 +41,27 @@ h2 {
   font-size: 1.4em;
 }
 
+h3 {
+  color: var(--azul-medio);
+  font-size: 2.4em;
+  font-weight: 600;
+  padding: 20px 20px;
+  margin: 20px auto 0 auto;
+  text-align: center;
+}
+
+table, td, th {
+  border: 1px solid black;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+td {
+  text-align: center;
+}
+
 /* Mensaje principal */
 .mensaje {
   font-size: 1.3em;
