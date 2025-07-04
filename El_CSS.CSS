@@ -209,3 +209,13 @@ body.registro .mensaje {
   color: var(--azul-oscuro);
   text-decoration: underline;
 }
+
+/* Animación para el contador */
+@keyframes pop {
+  0% { transform: scale(0.5); opacity: 0.2; }
+  60% { transform: scale(1.3); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+#contador.animar {
+  animation: pop 0.5s;
+}

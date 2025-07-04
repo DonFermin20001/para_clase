@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Juego de Tecla</title>
+  <link rel="stylesheet" href="El_CSS.CSS">
+</head>
+<body class="index-juego">
+
+  <h1>Presiona tu tecla registrada</h1>
+  <p class="mensaje" id="resultado">ESCOJA NOMBRE</p>
+
+  <h2>Iniciar Sesión</h2>
+  <label for="username">Usuario:</label>
+  <input type="text" class="form-control" id="username" readonly>
+
+  <p class="advertencia" id="mensajeFinal"></p>
+
+  <button id="btnContador">¡Comenzar juego!</button>
+  <button onclick="location.reload()">Refrescar página</button>
+
+  <div id="contador" style="font-size:2em; color:var(--azul-oscuro); margin:20px 0;"></div>
+
+<script>
+  function obtenerUsuariosRegistrados() {
+    return JSON.parse(localStorage.getItem('usuarios')) || [];
+  }
+
+  let teclaPresionada = false;
+  let primerUsuario = null;
+  let juegoActivo = false;
+
+  // Contador regresivo
+// Sonidos (puedes usar sonidos libres de https://mixkit.co o similares)
+const beep = new Audio("https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa1e7e.mp3");
+const go = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7bfa.mp3");
+
+document.getElementById('btnContador').addEventListener('click', function() {
+
+      // Despertar los sonidos (hack para navegadores)
+  beep.play().then(() => beep.pause()).catch(()=>{});
+  go.play().then(() => go.pause()).catch(()=>{});
+  
+  const contador = document.getElementById('contador');
+  const mensajes = ["1", "2", "3", "¡YA!"];
+  let i = 0;
+  teclaPresionada = false;
+  primerUsuario = null;
+  juegoActivo = false;
+  document.getElementById('username').value = '';
+  document.getElementById('resultado').textContent = 'ESCOJA NOMBRE';
+  document.getElementById('mensajeFinal').textContent = '';
+  contador.textContent = '';
+  this.disabled = true;
+
+  function mostrarSiguiente() {
+    if (i < mensajes.length) {
+      contador.textContent = mensajes[i];
+      contador.classList.remove('animar');
+      void contador.offsetWidth; // Reinicia la animación
+      contador.classList.add('animar');
+      if (mensajes[i] === "¡YA!") {
+        go.play();
+      } else {
+        beep.play();
+      }
+      i++;
+      setTimeout(mostrarSiguiente, 800);
+    } else {
+      contador.textContent = '';
+      juegoActivo = true;
+      document.getElementById('btnContador').disabled = false;
+    }
+  }
+  mostrarSiguiente();
+});
+
+  window.addEventListener('keydown', function(event) {
+    if (!juegoActivo) return;
+    const usuarios = obtenerUsuariosRegistrados();
+    const tecla = event.key.toUpperCase();
+    const usuario = usuarios.find(u => u.tecla === tecla);
+
+    if (usuario && !teclaPresionada) {
+      teclaPresionada = true;
+      primerUsuario = usuario;
+      document.getElementById('username').value = usuario.nombre;
+      document.getElementById('resultado').textContent =
+        `El usuario "${usuario.nombre}" ha presionado la tecla "${tecla}"`;
+      document.getElementById('mensajeFinal').textContent = '';
+    } else if (usuario && teclaPresionada) {
+      const segundoUsuario = usuario;
+      document.getElementById('mensajeFinal').innerHTML =
+        `El primer usuario fue <b>${primerUsuario.nombre}</b>.<br>
+        El segundo intento fue <b>${segundoUsuario.nombre}</b>.<br>
+        <strong>Solo la primera elección es válida.</strong><br>
+        Recarga la página para intentarlo de nuevo.`;
+    }
+  });
+</script>
+
+<div class="enlaces">
+<p>
+  <a href="precione.html">¿No estás registrado? Regístrate aquí</a>
+</p>
+</div>
+</body>
+</html>
