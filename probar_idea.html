@@ -19,7 +19,7 @@
   <button id="btnContador">¡Comenzar juego!</button>
   <button onclick="location.reload()">Refrescar página</button>
 
-  <div id="contador" style="font-size:2em; color:var(--azul-oscuro); margin:20px 0;"></div>
+  <div id="contador"></div>
 
 <script>
   function obtenerUsuariosRegistrados() {
@@ -31,9 +31,8 @@
   let juegoActivo = false;
 
   // Contador regresivo
-// Sonidos (puedes usar sonidos libres de https://mixkit.co o similares)
-const beep = new Audio("https://cdn.pixabay.com/audio/2022/07/26/audio_124bfa1e7e.mp3");
-const go = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_115b9b7bfa.mp3");
+const beep = new Audio("cuenta_regresiva.mp3");
+const go = new Audio("ya.mp3");
 
 document.getElementById('btnContador').addEventListener('click', function() {
 

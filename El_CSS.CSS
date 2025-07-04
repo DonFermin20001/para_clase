@@ -100,6 +100,17 @@ td {
   text-decoration: underline;
 }
 
+.contador {
+  font-size: 1.5em;
+  color: var(--azul-oscuro);
+  font-weight: 600;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background: var(--blanco);
+  border-radius: 6px;
+  box-shadow: 0 1px 6px rgba(36, 113, 163, 0.06);
+}
+
 /* Inputs y formularios */
 input[type="text"], select {
   background: var(--blanco);
