@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Juego de Tecla</title>
   <link rel="stylesheet" href="El_CSS.CSS">
 </head>
@@ -31,15 +32,11 @@
   let juegoActivo = false;
 
   // Contador regresivo
-const beep = new Audio("cuenta_regresiva.mp3");
 const go = new Audio("ya.mp3");
 
 document.getElementById('btnContador').addEventListener('click', function() {
+  go.play(); // El sonido suena al presionar el botón
 
-      // Despertar los sonidos (hack para navegadores)
-  beep.play().then(() => beep.pause()).catch(()=>{});
-  go.play().then(() => go.pause()).catch(()=>{});
-  
   const contador = document.getElementById('contador');
   const mensajes = ["1", "2", "3", "¡YA!"];
   let i = 0;
@@ -58,11 +55,7 @@ document.getElementById('btnContador').addEventListener('click', function() {
       contador.classList.remove('animar');
       void contador.offsetWidth; // Reinicia la animación
       contador.classList.add('animar');
-      if (mensajes[i] === "¡YA!") {
-        go.play();
-      } else {
-        beep.play();
-      }
+      // Ya NO reproducimos el sonido aquí
       i++;
       setTimeout(mostrarSiguiente, 800);
     } else {
