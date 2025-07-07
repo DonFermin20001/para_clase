@@ -17,58 +17,18 @@
 
   <p class="advertencia" id="mensajeFinal"></p>
 
-  <button id="btnContador">¡Comenzar juego!</button>
-  <button onclick="location.reload()">Refrescar página</button>
-
-  <div id="contador"></div>
+    <button onclick="location.reload()">Refrescar página</button>
 
 <script>
+  // Leer usuarios registrados desde localStorage
   function obtenerUsuariosRegistrados() {
     return JSON.parse(localStorage.getItem('usuarios')) || [];
   }
 
   let teclaPresionada = false;
   let primerUsuario = null;
-  let juegoActivo = false;
-
-  // Contador regresivo
-const go = new Audio("ya.mp3");
-
-document.getElementById('btnContador').addEventListener('click', function() {
-  go.play(); // El sonido suena al presionar el botón
-
-  const contador = document.getElementById('contador');
-  const mensajes = ["1", "2", "3", "¡YA!"];
-  let i = 0;
-  teclaPresionada = false;
-  primerUsuario = null;
-  juegoActivo = false;
-  document.getElementById('username').value = '';
-  document.getElementById('resultado').textContent = 'ESCOJA NOMBRE';
-  document.getElementById('mensajeFinal').textContent = '';
-  contador.textContent = '';
-  this.disabled = true;
-
-  function mostrarSiguiente() {
-    if (i < mensajes.length) {
-      contador.textContent = mensajes[i];
-      contador.classList.remove('animar');
-      void contador.offsetWidth; // Reinicia la animación
-      contador.classList.add('animar');
-      // Ya NO reproducimos el sonido aquí
-      i++;
-      setTimeout(mostrarSiguiente, 800);
-    } else {
-      contador.textContent = '';
-      juegoActivo = true;
-      document.getElementById('btnContador').disabled = false;
-    }
-  }
-  mostrarSiguiente();
-});
 
   window.addEventListener('keydown', function(event) {
-    if (!juegoActivo) return;
     const usuarios = obtenerUsuariosRegistrados();
     const tecla = event.key.toUpperCase();
     const usuario = usuarios.find(u => u.tecla === tecla);
@@ -93,7 +53,8 @@ document.getElementById('btnContador').addEventListener('click', function() {
 
 <div class="enlaces">
 <p>
-  <a href="precione.html">¿No estás registrado? Regístrate aquí</a>
+  <a href="precione.html">¿No estás registrado? Regístrate aquí</a></p>
+  <a href="otra_vez.html">¿estás registrado?</a>
 </p>
 </div>
 </body>
